@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } f
 import { getInitialState, playRound } from "../../game/engine";
 import { payoffMatrix, findNashEquilibria } from "../../game/logic";
 
-// Types moved here so we don't need the import line
 export type Move = "share" | "solo";
 
 export interface GameParams {
@@ -44,7 +43,7 @@ const styles = {
   buttonCobalt: { backgroundColor: '#0047ab', color: '#fff', border: '3px solid #08060d', boxShadow: '4px 4px 0px #08060d', padding: '12px 24px', fontWeight: 'bold', cursor: 'pointer', borderRadius: '4px' },
   buttonPink: { backgroundColor: '#ff1493', color: '#fff', border: '3px solid #08060d', boxShadow: '4px 4px 0px #08060d', padding: '12px 24px', fontWeight: 'bold', cursor: 'pointer', borderRadius: '4px' },
   matrixCell: { border: '2px solid #08060d', padding: '12px', textAlign: 'center' as const, fontWeight: 'bold' },
-  badge: { backgroundColor: '#ffed4a', border: '1px solid #000', padding: '2px 6px', fontSize: '10px', marginLeft: '6px', borderRadius: '4px' }
+  badge: { border: '1px solid #000', padding: '4px 8px', fontSize: '10px', fontWeight: 'bold', borderRadius: '4px', textTransform: 'uppercase' as const }
 };
 
 export default function StrategyRoom() {
@@ -89,7 +88,7 @@ export default function StrategyRoom() {
         <div style={{ ...styles.matrixCell, display: 'flex', alignItems: 'center' }}>You Share</div>
         <div style={{ ...styles.matrixCell, backgroundColor: currentRound?.playerMove==='share' && currentRound?.opponentMove==='share' ? '#e0e7ff' : '#fff' }}>
           {matrix.share_share[0]}, {matrix.share_share[1]}
-          {isNash("share", "share") && <span style={styles.badge}>NASH</span>}
+          {isNash("share", "share") && <span style={{...styles.badge, backgroundColor: '#ffed4a', marginLeft: '6px'}}>NASH</span>}
         </div>
         <div style={{ ...styles.matrixCell, backgroundColor: currentRound?.playerMove==='share' && currentRound?.opponentMove==='solo' ? '#e0e7ff' : '#fff' }}>
           {matrix.share_solo[0]}, {matrix.share_solo[1]}
@@ -101,7 +100,7 @@ export default function StrategyRoom() {
         </div>
         <div style={{ ...styles.matrixCell, backgroundColor: currentRound?.playerMove==='solo' && currentRound?.opponentMove==='solo' ? '#e0e7ff' : '#fff' }}>
           {matrix.solo_solo[0]}, {matrix.solo_solo[1]}
-          {isNash("solo", "solo") && <span style={styles.badge}>NASH</span>}
+          {isNash("solo", "solo") && <span style={{...styles.badge, backgroundColor: '#ffed4a', marginLeft: '6px'}}>NASH</span>}
         </div>
       </div>
     </div>
@@ -188,13 +187,26 @@ export default function StrategyRoom() {
             </div>
 
             {experimentData && (
-              <div style={{ ...styles.card, boxShadow: '6px 6px 0px #08060d', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: 10, right: 10, fontSize: '10px', fontWeight: 'bold', color: '#ff1493', textTransform: 'uppercase' }}>Measured in Experiment Lab</div>
-                {experimentData.is_sample && <span style={{ ...styles.badge, backgroundColor: '#ff1493', color: '#fff', position: 'absolute', top: 10, right: 220 }}>Sample Data</span>}
-                <h3 style={{ marginTop: 0 }}>Machine Learning Evidence</h3>
-                <p style={{ margin: '4px 0' }}>Solo Recall: {(experimentData.pooling.results[0].solo.recall * 100).toFixed(1)}%</p>
-                <p style={{ margin: '4px 0' }}>Pooled Recall: {(experimentData.pooling.results[0].pooled.recall * 100).toFixed(1)}%</p>
-                <p style={{ fontWeight: 'bold', marginTop: '12px', color: '#0047ab' }}>Pooling Gain: +${experimentData.pooling.results[0].gain_usd.toLocaleString()}</p>
+              <div style={{ ...styles.card, boxShadow: '6px 6px 0px #08060d' }}>
+                
+                {/* THIS IS THE NEW PERFECTLY SPACED FLEXBOX HEADER */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #e5e4e7', paddingBottom: '12px', marginBottom: '12px' }}>
+                  <h3 style={{ margin: 0 }}>Machine Learning Evidence</h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    {experimentData.is_sample && (
+                      <span style={{ ...styles.badge, backgroundColor: '#ff1493', color: '#fff' }}>
+                        Sample Data
+                      </span>
+                    )}
+                    <span style={{ fontSize: '10px', fontWeight: 'bold', color: '#ff1493', textTransform: 'uppercase' }}>
+                      Measured in<br/>Experiment Lab
+                    </span>
+                  </div>
+                </div>
+
+                <p style={{ margin: '8px 0' }}>Solo Recall: {(experimentData.pooling.results[0].solo.recall * 100).toFixed(1)}%</p>
+                <p style={{ margin: '8px 0' }}>Pooled Recall: {(experimentData.pooling.results[0].pooled.recall * 100).toFixed(1)}%</p>
+                <p style={{ fontWeight: 'bold', marginTop: '16px', color: '#0047ab', fontSize: '18px' }}>Pooling Gain: +${experimentData.pooling.results[0].gain_usd.toLocaleString()}</p>
               </div>
             )}
           </div>
