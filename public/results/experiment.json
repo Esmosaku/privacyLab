@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "is_sample": true,
+  "generated_at": "2026-10-17T13:00:00-07:00",
+  "seed": 42,
+
+  "dataset": {
+    "synthetic": true,
+    "n_transactions": 200000,
+    "fraud_rate": 0.005,
+    "feature_names": ["amount", "hour", "distance_from_home", "txn_count_24h", "is_online"],
+    "split": { "train": 0.6, "validation": 0.2, "test": 0.2 },
+    "test_size": 40000,
+    "test_fraud_count": 200,
+    "banks": {
+      "A": { "n_transactions": 60000, "fraud_rate": 0.005 },
+      "B": { "n_transactions": 140000, "fraud_rate": 0.005 }
+    }
+  },
+
+  "privacy": {
+    "library": "diffprivlib",
+    "mechanism": "Differentially private logistic regression",
+    "delta": 0,
+    "data_norm": 2.236,
+    "adjacency": "Add or remove one transaction",
+    "feature_bounds": {
+      "amount": [0, 5000],
+      "hour": [0, 23],
+      "distance_from_home": [0, 500],
+      "txn_count_24h": [0, 30],
+      "is_online": [0, 1]
+    },
+    "threshold_tuned_on": "validation",
+    "notes": "Features clipped to fixed public bounds and scaled to [0, 1]; data_norm = sqrt(5)."
+  },
+
+  "cost_assumptions": {
+    "currency": "USD",
+    "review_cost_usd": 5
+  },
+
+  "models": [
+    {
+      "id": "baseline",
+      "label": "No privacy",
+      "dp": false,
+      "epsilon": null,
+      "n_seeds": 1,
+      "threshold": 0.31,
+      "metrics": { "recall": 0.75, "precision": 0.333, "pr_auc": 0.62 },
+      "confusion": { "tp": 150, "fp": 300, "fn": 50, "tn": 39500 },
+      "cost": {
+        "missed_fraud_usd": 17500,
+        "false_alarms": 300,
+        "total_usd": 19000
+      },
+      "range": { "recall": [0.75, 0.75], "total_usd": [19000, 19000] }
+    },
+    {
+      "id": "eps_10",
+      "label": "Low privacy (ε = 10)",
+      "dp": true,
+      "epsilon": 10,
+      "n_seeds": 5,
+      "threshold": 0.29,
+      "metrics": { "recall": 0.70, "precision": 0.292, "pr_auc": 0.55 },
+      "confusion": { "tp": 140, "fp": 340, "fn": 60, "tn": 39460 },
+      "cost": {
+        "missed_fraud_usd": 21000,
+        "false_alarms": 340,
+        "total_usd": 22700
+      },
+      "range": { "recall": [0.66, 0.73], "total_usd": [21100, 24800] }
+    },
+    {
+      "id": "eps_2",
+      "label": "Medium privacy (ε = 2)",
+      "dp": true,
+      "epsilon": 2,
+      "n_seeds": 5,
+      "threshold": 0.24,
+      "metrics": { "recall": 0.55, "precision": 0.175, "pr_auc": 0.38 },
+      "confusion": { "tp": 110, "fp": 520, "fn": 90, "tn": 39280 },
+      "cost": {
+        "missed_fraud_usd": 31500,
+        "false_alarms": 520,
+        "total_usd": 34100
+      },
+      "range": { "recall": [0.47, 0.61], "total_usd": [30200, 39400] }
+    },
+    {
+      "id": "eps_0_5",
+      "label": "High privacy (ε = 0.5)",
+      "dp": true,
+      "epsilon": 0.5,
+      "n_seeds": 5,
+      "threshold": 0.18,
+      "metrics": { "recall": 0.20, "precision": 0.043, "pr_auc": 0.12 },
+      "confusion": { "tp": 40, "fp": 900, "fn": 160, "tn": 38900 },
+      "cost": {
+        "missed_fraud_usd": 56000,
+        "false_alarms": 900,
+        "total_usd": 60500
+      },
+      "range": { "recall": [0.08, 0.31], "total_usd": [51000, 71200] }
+    }
+  ],
+
+  "pooling": {
+    "evaluated_on": "Bank A test set",
+    "results": [
+      {
+        "model_id": "baseline",
+        "solo": { "recall": 0.62, "total_usd": 14200 },
+        "pooled": { "recall": 0.74, "total_usd": 9800 },
+        "gain_usd": 4400
+      },
+      {
+        "model_id": "eps_10",
+        "solo": { "recall": 0.55, "total_usd": 16800 },
+        "pooled": { "recall": 0.69, "total_usd": 11500 },
+        "gain_usd": 5300
+      },
+      {
+        "model_id": "eps_2",
+        "solo": { "recall": 0.38, "total_usd": 23900 },
+        "pooled": { "recall": 0.52, "total_usd": 18600 },
+        "gain_usd": 5300
+      },
+      {
+        "model_id": "eps_0_5",
+        "solo": { "recall": 0.10, "total_usd": 31000 },
+        "pooled": { "recall": 0.18, "total_usd": 28700 },
+        "gain_usd": 2300
+      }
+    ]
+  }
+}
