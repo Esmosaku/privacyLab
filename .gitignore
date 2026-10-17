@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# ML data (raw dataset + generated splits/predictions)
+ml/data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
