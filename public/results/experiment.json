@@ -1,45 +1,192 @@
 {
   "schema_version": "1.0",
-  "is_sample": true,
-  "generated_at": "2026-10-17T13:00:00-07:00",
+  "is_sample": false,
+  "generated_at": "2026-10-17T23:00:09.127517+00:00",
   "seed": 42,
-
   "dataset": {
-    "synthetic": true,
-    "n_transactions": 200000,
-    "fraud_rate": 0.005,
-    "feature_names": ["amount", "hour", "distance_from_home", "txn_count_24h", "is_online"],
-    "split": { "train": 0.6, "validation": 0.2, "test": 0.2 },
-    "test_size": 40000,
-    "test_fraud_count": 200,
+    "synthetic": false,
+    "n_transactions": 284807,
+    "fraud_rate": 0.001727,
+    "feature_names": [
+      "V1",
+      "V2",
+      "V3",
+      "V4",
+      "V5",
+      "V6",
+      "V7",
+      "V8",
+      "V9",
+      "V10",
+      "V11",
+      "V12",
+      "V13",
+      "V14",
+      "V15",
+      "V16",
+      "V17",
+      "V18",
+      "V19",
+      "V20",
+      "V21",
+      "V22",
+      "V23",
+      "V24",
+      "V25",
+      "V26",
+      "V27",
+      "V28",
+      "Amount"
+    ],
+    "split": {
+      "train": 0.6,
+      "validation": 0.2,
+      "test": 0.2
+    },
+    "test_size": 56962,
+    "test_fraud_count": 99,
     "banks": {
-      "A": { "n_transactions": 60000, "fraud_rate": 0.005 },
-      "B": { "n_transactions": 140000, "fraud_rate": 0.005 }
+      "A": {
+        "n_transactions": 85563,
+        "fraud_rate": 0.001706
+      },
+      "B": {
+        "n_transactions": 199244,
+        "fraud_rate": 0.001737
+      }
     }
   },
-
   "privacy": {
     "library": "diffprivlib",
     "mechanism": "Differentially private logistic regression",
     "delta": 0,
-    "data_norm": 2.236,
+    "data_norm": 3.0,
     "adjacency": "Add or remove one transaction",
     "feature_bounds": {
-      "amount": [0, 5000],
-      "hour": [0, 23],
-      "distance_from_home": [0, 500],
-      "txn_count_24h": [0, 30],
-      "is_online": [0, 1]
+      "V1": [
+        -5.0,
+        5.0
+      ],
+      "V2": [
+        -5.0,
+        5.0
+      ],
+      "V3": [
+        -5.0,
+        5.0
+      ],
+      "V4": [
+        -5.0,
+        5.0
+      ],
+      "V5": [
+        -5.0,
+        5.0
+      ],
+      "V6": [
+        -5.0,
+        5.0
+      ],
+      "V7": [
+        -5.0,
+        5.0
+      ],
+      "V8": [
+        -5.0,
+        5.0
+      ],
+      "V9": [
+        -5.0,
+        5.0
+      ],
+      "V10": [
+        -5.0,
+        5.0
+      ],
+      "V11": [
+        -5.0,
+        5.0
+      ],
+      "V12": [
+        -5.0,
+        5.0
+      ],
+      "V13": [
+        -5.0,
+        5.0
+      ],
+      "V14": [
+        -5.0,
+        5.0
+      ],
+      "V15": [
+        -5.0,
+        5.0
+      ],
+      "V16": [
+        -5.0,
+        5.0
+      ],
+      "V17": [
+        -5.0,
+        5.0
+      ],
+      "V18": [
+        -5.0,
+        5.0
+      ],
+      "V19": [
+        -5.0,
+        5.0
+      ],
+      "V20": [
+        -5.0,
+        5.0
+      ],
+      "V21": [
+        -5.0,
+        5.0
+      ],
+      "V22": [
+        -5.0,
+        5.0
+      ],
+      "V23": [
+        -5.0,
+        5.0
+      ],
+      "V24": [
+        -5.0,
+        5.0
+      ],
+      "V25": [
+        -5.0,
+        5.0
+      ],
+      "V26": [
+        -5.0,
+        5.0
+      ],
+      "V27": [
+        -5.0,
+        5.0
+      ],
+      "V28": [
+        -5.0,
+        5.0
+      ],
+      "Amount": [
+        0.0,
+        5000.0
+      ]
     },
     "threshold_tuned_on": "validation",
-    "notes": "Features clipped to fixed public bounds and scaled to [0, 1]; data_norm = sqrt(5)."
+    "notes": "Amount is log1p-transformed and scaled to [0, 1] before training; the bounds above are the pre-log1p raw-dollar clipping bounds, not the transformed training range. Every row's L2 norm is explicitly clipped down to data_norm before training -- this clipping is data-independent (the threshold is a fixed public constant), the same idea as gradient clipping in DP-SGD, so it does not cost privacy budget. The privacy guarantee covers training only; thresholds are tuned on a separate validation split, which is not privacy-protected."
   },
-
   "cost_assumptions": {
     "currency": "USD",
     "review_cost_usd": 5
   },
-
   "models": [
     {
       "id": "baseline",
@@ -47,15 +194,33 @@
       "dp": false,
       "epsilon": null,
       "n_seeds": 1,
-      "threshold": 0.31,
-      "metrics": { "recall": 0.75, "precision": 0.333, "pr_auc": 0.62 },
-      "confusion": { "tp": 150, "fp": 300, "fn": 50, "tn": 39500 },
-      "cost": {
-        "missed_fraud_usd": 17500,
-        "false_alarms": 300,
-        "total_usd": 19000
+      "threshold": 0.084,
+      "metrics": {
+        "recall": 0.8384,
+        "precision": 0.7411,
+        "pr_auc": 0.8143
       },
-      "range": { "recall": [0.75, 0.75], "total_usd": [19000, 19000] }
+      "confusion": {
+        "tp": 83.0,
+        "fp": 29.0,
+        "fn": 16.0,
+        "tn": 56834.0
+      },
+      "cost": {
+        "missed_fraud_usd": 2507.75,
+        "false_alarms": 29.0,
+        "total_usd": 2652.75
+      },
+      "range": {
+        "recall": [
+          0.8384,
+          0.8384
+        ],
+        "total_usd": [
+          2652.75,
+          2652.75
+        ]
+      }
     },
     {
       "id": "eps_10",
@@ -63,15 +228,33 @@
       "dp": true,
       "epsilon": 10,
       "n_seeds": 5,
-      "threshold": 0.29,
-      "metrics": { "recall": 0.70, "precision": 0.292, "pr_auc": 0.55 },
-      "confusion": { "tp": 140, "fp": 340, "fn": 60, "tn": 39460 },
-      "cost": {
-        "missed_fraud_usd": 21000,
-        "false_alarms": 340,
-        "total_usd": 22700
+      "threshold": 0.1051,
+      "metrics": {
+        "recall": 0.8343,
+        "precision": 0.7336,
+        "pr_auc": 0.8123
       },
-      "range": { "recall": [0.66, 0.73], "total_usd": [21100, 24800] }
+      "confusion": {
+        "tp": 82.6,
+        "fp": 30.0,
+        "fn": 16.4,
+        "tn": 56833.0
+      },
+      "cost": {
+        "missed_fraud_usd": 2512.0,
+        "false_alarms": 30.0,
+        "total_usd": 2662.0
+      },
+      "range": {
+        "recall": [
+          0.8283,
+          0.8384
+        ],
+        "total_usd": [
+          2632.75,
+          2711.79
+        ]
+      }
     },
     {
       "id": "eps_2",
@@ -79,15 +262,33 @@
       "dp": true,
       "epsilon": 2,
       "n_seeds": 5,
-      "threshold": 0.24,
-      "metrics": { "recall": 0.55, "precision": 0.175, "pr_auc": 0.38 },
-      "confusion": { "tp": 110, "fp": 520, "fn": 90, "tn": 39280 },
-      "cost": {
-        "missed_fraud_usd": 31500,
-        "false_alarms": 520,
-        "total_usd": 34100
+      "threshold": 0.0487,
+      "metrics": {
+        "recall": 0.6828,
+        "precision": 0.4029,
+        "pr_auc": 0.5543
       },
-      "range": { "recall": [0.47, 0.61], "total_usd": [30200, 39400] }
+      "confusion": {
+        "tp": 67.6,
+        "fp": 100.2,
+        "fn": 31.4,
+        "tn": 56762.8
+      },
+      "cost": {
+        "missed_fraud_usd": 3866.44,
+        "false_alarms": 100.2,
+        "total_usd": 4367.44
+      },
+      "range": {
+        "recall": [
+          0.5253,
+          0.7778
+        ],
+        "total_usd": [
+          3540.57,
+          4824.59
+        ]
+      }
     },
     {
       "id": "eps_0_5",
@@ -95,44 +296,85 @@
       "dp": true,
       "epsilon": 0.5,
       "n_seeds": 5,
-      "threshold": 0.18,
-      "metrics": { "recall": 0.20, "precision": 0.043, "pr_auc": 0.12 },
-      "confusion": { "tp": 40, "fp": 900, "fn": 160, "tn": 38900 },
-      "cost": {
-        "missed_fraud_usd": 56000,
-        "false_alarms": 900,
-        "total_usd": 60500
+      "threshold": 0.4258,
+      "metrics": {
+        "recall": 0.5253,
+        "precision": 0.1669,
+        "pr_auc": 0.3093
       },
-      "range": { "recall": [0.08, 0.31], "total_usd": [51000, 71200] }
+      "confusion": {
+        "tp": 52.0,
+        "fp": 259.6,
+        "fn": 47.0,
+        "tn": 56603.4
+      },
+      "cost": {
+        "missed_fraud_usd": 5440.3,
+        "false_alarms": 259.6,
+        "total_usd": 6738.3
+      },
+      "range": {
+        "recall": [
+          0.3535,
+          0.7172
+        ],
+        "total_usd": [
+          5772.46,
+          8127.78
+        ]
+      }
     }
   ],
-
   "pooling": {
-    "evaluated_on": "Bank A test set",
+    "evaluated_on": "Shared held-out test set (Banks A and B are random splits of one population)",
     "results": [
       {
         "model_id": "baseline",
-        "solo": { "recall": 0.62, "total_usd": 14200 },
-        "pooled": { "recall": 0.74, "total_usd": 9800 },
-        "gain_usd": 4400
+        "solo": {
+          "recall": 0.8384,
+          "total_usd": 2662.75
+        },
+        "pooled": {
+          "recall": 0.8384,
+          "total_usd": 2652.75
+        },
+        "gain_usd": 10.0
       },
       {
         "model_id": "eps_10",
-        "solo": { "recall": 0.55, "total_usd": 16800 },
-        "pooled": { "recall": 0.69, "total_usd": 11500 },
-        "gain_usd": 5300
+        "solo": {
+          "recall": 0.8121,
+          "total_usd": 3311.93
+        },
+        "pooled": {
+          "recall": 0.8343,
+          "total_usd": 2662.0
+        },
+        "gain_usd": 649.93
       },
       {
         "model_id": "eps_2",
-        "solo": { "recall": 0.38, "total_usd": 23900 },
-        "pooled": { "recall": 0.52, "total_usd": 18600 },
-        "gain_usd": 5300
+        "solo": {
+          "recall": 0.5697,
+          "total_usd": 6227.95
+        },
+        "pooled": {
+          "recall": 0.6828,
+          "total_usd": 4367.44
+        },
+        "gain_usd": 1860.51
       },
       {
         "model_id": "eps_0_5",
-        "solo": { "recall": 0.10, "total_usd": 31000 },
-        "pooled": { "recall": 0.18, "total_usd": 28700 },
-        "gain_usd": 2300
+        "solo": {
+          "recall": 0.1455,
+          "total_usd": 9469.85
+        },
+        "pooled": {
+          "recall": 0.5253,
+          "total_usd": 6738.3
+        },
+        "gain_usd": 2731.55
       }
     ]
   }
