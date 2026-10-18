@@ -4,8 +4,9 @@
 
 Built at **DubHacks 2026** (University of Washington) · Chef's Choice track
 
-**Live demo:** privacy-lab-one.vercel.app
----
+**Live demo:** [makeprivacy.work](https://www.makeprivacy.work) · Backup: [privacy-lab-one.vercel.app](https://privacy-lab-one.vercel.app)
+
+<sub><i>The custom domain is registered through GoDaddy Registry and hosted on Vercel.</i></sub>
 
 ## The problem
 
