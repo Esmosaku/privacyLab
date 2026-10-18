@@ -1,5 +1,5 @@
-// Owner: Linh (labels) + Mai (look). The 2x2 table of points for each pair of moves.
-// TODO(Linh): say whose number is whose ("You / Rival") and that these are points, not dollars.
+// The 2x2 table of points for each pair of moves.
+// TODO: say whose number is whose ("You / Rival") and that these are points, not dollars.
 
 import { findNashEquilibria, payoffMatrix } from "../../game/logic";
 import type { GameParams, Move, RoundHistory } from "../../game/types";

@@ -1,4 +1,4 @@
-// Owner: Mai (look). Cumulative score for both banks over the rounds.
+// Cumulative score for both banks over the rounds.
 
 import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { RoundHistory } from "../../game/types";

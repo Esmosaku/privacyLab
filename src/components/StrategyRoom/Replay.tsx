@@ -1,5 +1,5 @@
-// Owner: Kai. Step through a finished game.
-// TODO(Kai): replay starts at "Round 0"; it should start at round 1.
+// Step through a finished game.
+// TODO: replay starts at "Round 0"; it should start at round 1.
 
 interface Props {
   step: number;

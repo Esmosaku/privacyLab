@@ -1,4 +1,4 @@
-// Owner: Mai (look). Round counter and running scores.
+// Round counter and running scores.
 
 interface Props {
   round: number;

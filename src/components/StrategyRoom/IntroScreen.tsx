@@ -1,5 +1,5 @@
-// Owner: Linh. The first screen: scene-setting, opponent picker, Start and Demo buttons.
-// TODO(Linh): "Bank A/B/C" clashes with the ML banks; replace with rival personas.
+// The first screen: scene-setting, opponent picker, Start and Demo buttons.
+// TODO: "Bank A/B/C" clashes with the ML banks; replace with rival personas.
 
 interface Props {
   opponentId: string;

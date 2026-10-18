@@ -1,8 +1,6 @@
 // Strategy Room container: loads data, holds the game state, and arranges the pieces.
-// Each piece lives in its own file so teammates can work in parallel:
-//   IntroScreen (Linh) · RoundPlay, Debrief, Replay (Kai) · PayoffMatrix (Linh + Mai)
-//   Scoreboard, TrustMeter, ScoreChart, StrategyRoom.css (Mai) · EvidencePanel (Esther)
-// Game rules live in src/game/ (Kai).
+// Each piece of the screen lives in its own file in this folder; styles are in StrategyRoom.css.
+// Game rules live in src/game/.
 
 import { useEffect, useState } from "react";
 import { getInitialState, playRound } from "../../game/engine";
@@ -74,7 +72,7 @@ export default function StrategyRoom({ modelId = "baseline" }: Props) {
       {phase !== "intro" && state && (
         <div className="sr-board">
           <div>
-            {/* TODO(Kai): after the last round this shows "Round 7 / 6". */}
+            {/* TODO: after the last round this shows "Round 7 / 6". */}
             <Scoreboard
               round={isReplay ? replayStep : state.history.length + 1}
               totalRounds={params.rounds}
