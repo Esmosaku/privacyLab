@@ -50,8 +50,9 @@ Everything is seeded (`seed = 42`), so rerunning reproduces the same results.
 | 3. Preprocess | `preprocess.py` | Clips features to fixed bounds and caps each row's norm at 3.0 |
 | 4. Train | `train.py` | Baseline logistic regression + diffprivlib models at ε = 10, 2, 0.5 (5 seeds each) |
 | 5. Evaluate | `evaluate.py` | Picks cost-minimizing thresholds on validation; grades on test |
-| 6. Pool + export | `export.py` | Bank A solo vs. pooled comparison; writes the JSON |
-| Run all | `run.py` | Runs steps 1–6 in order |
+| 6. Pool | `pooling.py` | Bank A trained alone vs. Banks A + B pooled, graded on the same test set |
+| 7. Export | `export.py` | Writes `public/results/experiment.json` |
+| Run all | `run.py` | Runs every step in order |
 | Tests | `tests/test_schema.py` | Checks schema, invariants, and that there are no NaNs |
 
 ## Privacy details
