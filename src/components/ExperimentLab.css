@@ -6,3 +6,29 @@
 
 /* Shared logo: same plain flask as every other page (no black tile) */
 .lab-logo { width: 28px; height: 35px; padding: 0; background: none; border-radius: 0; color: inherit; }
+
+/* More prominent Strategy Room invitation */
+.lab-footer{padding-top:20px;padding-bottom:4px;gap:24px;flex-wrap:wrap}
+.lab-footer .lab-footer-copy{width:auto;flex:1 1 240px}
+.lab-footer-copy h2{margin:0 0 4px;font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.5px}
+.lab-footer-copy p{font-size:14px;color:#303238}
+.lab-footer .lab-footer-action{width:auto;max-width:100%}
+.lab-footer .lab-strategy{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%;min-height:64px;padding:20px 28px;border:1px solid #eee3a5;border-radius:12px;background:#fff8c8;color:#080808;font-family:inherit;font-size:17px;font-weight:700;line-height:1.35;text-align:left;cursor:pointer}
+.lab-footer .lab-strategy span{flex-shrink:0;margin-left:0;font-size:28px;line-height:1}
+.lab-footer .lab-strategy:hover:not(:disabled){background:#fff2a6}
+.lab-footer .lab-strategy:focus-visible{outline:3px solid #173e63;outline-offset:4px}
+.lab-footer .lab-strategy:disabled{opacity:.55;cursor:not-allowed}
+@media(max-width:720px){.lab-footer{align-items:stretch;gap:14px}.lab-footer .lab-footer-copy,.lab-footer .lab-footer-action{width:100%;flex-basis:100%}.lab-footer .lab-strategy{padding:18px 20px;font-size:16px}}
+
+/* One shared floating navigation over the experiment background */
+.app-experiment-page{min-height:100svh;background:#d5d5d5 url('/images/silver-background.png') center/cover fixed;font-family:Arial,Helvetica,sans-serif;color:#071a34}
+.app-experiment-page>.home-header{background:transparent;border-bottom:0;margin:0 4%;padding:22px 12px 18px}
+.app-experiment-page>.home-header .home-brand{font-family:Arial,Helvetica,sans-serif;font-weight:600}
+.app-experiment-page .lab-page{background:transparent;padding-top:10px}
+.app-experiment-page .lab-content{padding-top:28px}
+.lab-intro{align-items:flex-start}
+.lab-intro-meta{display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding-top:8px;flex-shrink:0}
+.lab-intro-meta .lab-kicker{white-space:nowrap}
+@media(min-width:1600px){.app-experiment-page>.home-header{margin-inline:5%}}
+@media(max-width:1050px){.lab-intro{flex-wrap:wrap}.lab-intro-meta{padding-top:0;align-items:flex-start}}
+@media(max-width:720px){.app-experiment-page>.home-header{margin-inline:18px;padding:18px 0 12px}.app-experiment-page .lab-page{padding-top:8px}.app-experiment-page .lab-content{padding-top:22px}.lab-intro{gap:12px}.lab-intro-meta{flex-direction:row;align-items:center;flex-wrap:wrap;flex-shrink:1}.lab-intro-meta .lab-kicker{display:inline;font-size:9px;letter-spacing:.7px;white-space:normal}}

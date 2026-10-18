@@ -12,7 +12,36 @@ import BrandMark from '../BrandMark';
 import './StrategyLayout.css';
 export type BoardPhase='playing'|'deciding'|'reveal'|'debrief'|'replay';
 interface Props{state:GameState;phase:BoardPhase;experiment:Experiment|null;evidenceError:string|null;modelId:string;verdict:VerdictInfo|null;replayStep:number;onMove:(m:Move)=>void;onNext:()=>void;onReplay:()=>void;onRestart:()=>void;onReplayStep:(n:number)=>void}
-function History({rows}:{rows:RoundHistory[]}){return <section className="sg-history"><h3>{c.history}</h3>{!rows.length?<p className="sg-muted">{c.emptyHistory}</p>:<div className="sg-history-scroll"><table><thead><tr><th>Quarter</th><th>{c.you}</th><th>{c.them}</th><th>Saved (You / Them)</th></tr></thead><tbody>{rows.map(r=><tr key={r.round}><td>Q{r.round}</td><td>{r.playerMove==='share'?c.share:c.solo}</td><td>{r.opponentMove==='share'?c.share:c.solo}</td><td>{formatSavings(r.playerScore)} / {formatSavings(r.opponentScore)}</td></tr>)}</tbody></table></div>}</section>}
+function History({ rows }: { rows: RoundHistory[] }) {
+  const newestFirst = [...rows].reverse();
+  return (
+    <section className="sg-history">
+      <h3>{c.history}</h3>
+      {!rows.length ? <p className="sg-muted">{c.emptyHistory}</p> : (
+        <>
+          <p className="sg-history-hint">Latest quarter first · Scroll for earlier quarters</p>
+          <div className="sg-history-scroll" tabIndex={0} role="region"
+            aria-label="Quarter history, latest first" key={rows.at(-1)?.round}>
+            <table>
+              <thead><tr>
+                <th scope="col">Quarter</th><th scope="col">{c.you}</th>
+                <th scope="col">{c.them}</th><th scope="col">Saved (You / Them)</th>
+              </tr></thead>
+              <tbody>{newestFirst.map((r, index) => (
+                <tr key={r.round} className={index === 0 ? 'sg-history-latest' : undefined}>
+                  <td>Q{r.round}</td>
+                  <td>{r.playerMove === 'share' ? c.share : c.solo}</td>
+                  <td>{r.opponentMove === 'share' ? c.share : c.solo}</td>
+                  <td>{formatSavings(r.playerScore)} / {formatSavings(r.opponentScore)}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </>
+      )}
+    </section>
+  );
+}
 export default function GameBoard(p:Props){
  const {state,phase}=p;const rows=phase==='replay'?state.history.slice(0,p.replayStep):state.history;const last=rows.at(-1);const ending=state.history.at(-1);const round=phase==='playing'||phase==='deciding'?rows.length+1:rows.length;
  const persona=personas[state.opponentId];const neverShared=(()=>{let s=getInitialState(state.params,state.opponentId,state.seed);for(let i=0;i<state.params.rounds;i++)s=playRound(s,'solo');return s.playerCumulative})();const saved=state.playerCumulative;const diff=Math.round((saved-neverShared)*100)/100;const sharingPays=!p.verdict||p.verdict.verdict!=='dontPool';const rival=rivals.find(r=>r.id===state.opponentId)?.name??'Your rival';

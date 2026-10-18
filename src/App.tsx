@@ -80,12 +80,10 @@ export default function App() {
 
   if (page === 'experiment') {
     return (
-      <>
-        <div className="app-lab-nav">
-          <SiteHeader page={page} />
-        </div>
+      <div className="app-experiment-page">
+        <SiteHeader page={page} />
         <ExperimentScreen />
-      </>
+      </div>
     );
   }
 

@@ -257,3 +257,34 @@
 
 /* Shared logo on the game screen */
 .sg-brand svg { width: 24px; height: 30px; flex-shrink: 0; }
+
+/* Keep recent quarters visible within the compact board */
+.sg-history-hint{margin:0 0 8px;color:#c0d2e4;font-size:12px}
+.sg-history-scroll{overflow:auto;scrollbar-width:thin;scrollbar-color:#9bbbd3 #17394f}
+.sg-history-scroll thead th{position:sticky;top:0;z-index:1;background:#17394f}
+.sg-history-latest{background:#e6fbda12}
+.sg-history-latest td:first-child{color:#e6fbda;font-weight:700}
+.sg-history-scroll:focus-visible{outline:2px solid #fff8d2;outline-offset:3px}
+
+
+/* Show every quarter without an internal scrollbar */
+.sg-history-scroll {
+  max-height: none;
+  overflow: visible;
+}
+
+.sg-history-scroll thead th {
+  position: static;
+}
+
+.sg-history-hint {
+  display: none;
+}
+/* Shared navigation branding on the game screen */
+.sg-nav{position:relative;color:#fff;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.5)}
+.sg-brand{font-family:Arial,Helvetica,sans-serif;font-size:clamp(22px,2vw,30px);font-weight:600;line-height:1.2;letter-spacing:-1px;color:#fff;gap:15px}
+.sg-brand svg{width:32px;height:40px;flex-shrink:0;color:#fff}
+.sg-nav nav{gap:clamp(25px,4vw,64px)}
+.sg-nav nav a{font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#fff}
+.sg-nav nav a:hover{color:#fff;text-decoration:underline;text-underline-offset:6px}
+@media(max-width:600px){.sg-brand{font-size:21px;gap:8px}.sg-brand svg{width:24px;height:32px}.sg-nav nav{gap:22px}.sg-nav nav a{font-size:14px}}

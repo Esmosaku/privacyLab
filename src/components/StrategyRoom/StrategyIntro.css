@@ -119,3 +119,14 @@
 /* Goal line under the description */
 .sr-intro-goal { display: inline-block; margin: 16px 0 0; padding: 8px 16px; border: 1px solid #e6fbda66; border-radius: 999px; background: #e6fbda1a; color: #e6fbda; font: 600 clamp(16px, 1.5vw, 22px)/1.35 Arial, Helvetica, sans-serif; }
 @media (max-width: 700px) { .sr-intro-goal { font-size: 16px; border-radius: 14px; } }
+
+/* Shared navigation branding: white on the Strategy Room background */
+.sr-intro-header{position:relative;color:#fff}
+.sr-intro-header::after{content:'';position:absolute;left:clamp(24px,4.5vw,70px);right:clamp(24px,4.5vw,70px);bottom:0;height:1px;background:rgba(255,255,255,.5);pointer-events:none}
+.sr-intro-brand{font-family:Arial,Helvetica,sans-serif;font-size:clamp(22px,2vw,30px);font-weight:600;line-height:1.2;letter-spacing:-1px;color:#fff;gap:15px}
+.sr-intro-brand svg{width:32px;height:40px;flex-shrink:0;color:#fff}
+.sr-intro-header nav{gap:clamp(25px,4vw,64px)}
+.sr-intro-header nav a{font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#fff}
+.sr-intro-header nav a:hover{color:#fff;text-decoration:underline;text-underline-offset:6px}
+@media(max-width:700px){.sr-intro-header::after{left:22px;right:22px}}
+@media(max-width:600px){.sr-intro-brand{font-size:21px;gap:8px}.sr-intro-brand svg{width:24px;height:32px}.sr-intro-header nav{gap:22px}.sr-intro-header nav a{font-size:14px}}
