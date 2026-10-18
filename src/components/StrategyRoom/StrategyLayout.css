@@ -1,0 +1,246 @@
+/* Loaded after GameBoard.css. Scoped to the game board; intro is unchanged. */
+.sg-layout{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:stretch}
+.sg-decision{display:flex;flex-direction:column;padding:24px}
+.sg-move-panel{text-align:center}
+.sg-move-panel h2{font-size:clamp(28px,3vw,40px)}
+.sg-move-panel .sg-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:26px 0 8px}
+.sg-move-panel .sg-choices button{display:flex;flex-direction:column;white-space:normal;gap:14px;min-height:210px;padding:24px 16px}
+.sg-move-panel .sg-choices svg{width:54px;height:54px;flex-shrink:0}
+.sg-move-panel .sg-choices strong{font-size:26px;line-height:1.15}
+.sg-move-panel .sg-choices small{font-size:16px;font-weight:400;line-height:1.5;max-width:230px}
+.sg-decision .sg-trust{text-align:center;margin-top:24px}
+.sg-decision .sg-trust h3{display:inline;font-size:20px}
+.sg-decision .sg-trust>p:not(.sg-trust-note){display:inline;margin-left:8px}
+.sg-decision .sg-trust>p strong{font-size:28px}
+.sg-decision .sg-trust-track{margin-top:12px}
+.sg-decision .sg-history{flex:1;min-height:130px}
+.sg-decision .sg-history>.sg-muted{text-align:center;padding:24px 0}
+.sg-sidebar{display:flex;flex-direction:column;gap:16px}
+.sg-sidebar .sg-outcomes{padding:24px}
+.sg-outcomes dl>div{padding:12px 0}
+.sg-results{padding:22px;min-width:0;flex:1}
+.sg-results header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.sg-results header h2{font-size:25px;margin:0}
+.sg-results .sg-model-tag{background:#e6edf5;color:#17334d;border-radius:24px}
+.sg-results h3{margin-bottom:10px}
+.sg-results-recall{margin:0 0 18px}
+.sg-results-recall>div{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid #dce3eb}
+.sg-results-recall dd{margin:0;font-weight:700}
+.sg-results-saving{padding:16px;background:#e1fae7;border-radius:12px;color:#0c2d45}
+.sg-results-saving.is-neutral{background:#edf1f5}
+.sg-results-saving p{margin:0;line-height:1.5}
+.sg-results-saving strong{font-size:clamp(24px,2.7vw,34px);margin-right:5px;letter-spacing:-.04em}
+.sg-results-saving p+p{font-size:13px;color:#526b7e;margin-top:6px}
+.sg-results-context{font-size:12px;color:#526477;margin-top:14px}
+.sg-results-context summary{cursor:pointer}
+.sg-results-context p{margin:8px 0}
+.sg-results footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid #dce3eb;margin-top:16px;padding-top:14px;font-size:12px;color:#526477}
+.sg-results footer p{margin:0;flex:1;min-width:160px}
+.sg-results a{color:#173f74;text-underline-offset:3px}
+.sg-results a:focus-visible,.sg-results summary:focus-visible{outline:3px solid #173f74;outline-offset:4px}
+@media(max-width:1000px){.sg-layout{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}.sg-move-panel .sg-choices strong{font-size:22px}.sg-move-panel .sg-choices small{font-size:14px}}
+@media(max-width:800px){.sg-layout{grid-template-columns:1fr}.sg-sidebar{display:flex}.sg-move-panel .sg-choices button{min-height:180px}.sg-decision .sg-history{min-height:0}}
+@media(max-width:440px){.sg-decision,.sg-results,.sg-sidebar .sg-outcomes{padding:18px}.sg-move-panel .sg-choices{gap:10px}.sg-move-panel .sg-choices button{padding:18px 10px;min-height:190px}.sg-move-panel .sg-choices svg{width:38px;height:38px}.sg-move-panel .sg-choices strong{font-size:20px}.sg-move-panel .sg-choices small{font-size:13px}.sg-outcomes header{flex-wrap:wrap}.sg-outcomes header>div{text-align:left}}
+
+
+
+/* Compact desktop layout */
+@media (min-width: 901px) {
+  .sg-shell {
+    padding-top: 10px;
+    padding-bottom: 8px;
+  }
+
+  .sg-nav {
+    margin-bottom: 8px;
+  }
+
+  .sg-brand {
+    font-size: 21px;
+  }
+
+  .sg-title h1 {
+    font-size: 38px;
+  }
+
+  .sg-title > p {
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+
+  .sg-scoreboard {
+    padding: 9px 22px;
+    margin-bottom: 12px;
+  }
+
+  .sg-scoreboard strong {
+    font-size: 26px;
+  }
+
+  .sg-layout,
+  .sg-sidebar {
+    gap: 12px;
+  }
+
+  .sg-decision,
+  .sg-sidebar .sg-outcomes,
+  .sg-results {
+    padding: 16px;
+  }
+
+  .sg-move-panel h2 {
+    font-size: 28px;
+  }
+
+  .sg-move-panel .sg-choices {
+    margin: 14px 0 6px;
+    gap: 12px;
+  }
+
+  .sg-move-panel .sg-choices button {
+    min-height: 140px;
+    padding: 16px 12px;
+    gap: 8px;
+  }
+
+  .sg-move-panel .sg-choices svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .sg-move-panel .sg-choices strong {
+    font-size: 22px;
+  }
+
+  .sg-move-panel .sg-choices small {
+    font-size: 13px;
+  }
+
+  .sg-decision .sg-trust {
+    margin-top: 14px;
+  }
+
+  .sg-decision .sg-trust > p strong {
+    font-size: 24px;
+  }
+
+  .sg-trust-track {
+    height: 10px;
+  }
+
+  .sg-trust .sg-trust-note {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .sg-decision .sg-history {
+    min-height: 0;
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+
+  .sg-history-scroll {
+    max-height: 85px;
+  }
+
+  .sg-history th,
+  .sg-history td {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .sg-decision .sg-history > .sg-muted {
+    padding: 10px 0;
+  }
+
+  .sg-reveal h2,
+  .sg-debrief h2 {
+    font-size: 25px;
+  }
+
+  .sg-reveal > p,
+  .sg-debrief > p {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  .sg-moves {
+    margin: 12px 0;
+  }
+
+  .sg-moves > div {
+    padding: 10px;
+    gap: 5px;
+    font-size: 14px;
+  }
+
+  .sg-moves strong {
+    font-size: 18px;
+  }
+
+  .sg-page button {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+
+  .sg-outcomes h2,
+  .sg-results header h2 {
+    font-size: 21px;
+  }
+
+  .sg-outcomes dl > div {
+    padding: 7px 0;
+    font-size: 14px;
+  }
+
+  .sg-results header {
+    margin-bottom: 10px;
+  }
+
+  .sg-results h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .sg-results-recall {
+    margin-bottom: 10px;
+  }
+
+  .sg-results-recall > div {
+    padding: 7px 0;
+    font-size: 14px;
+  }
+
+  .sg-results-saving {
+    padding: 10px 12px;
+  }
+
+  .sg-results-saving strong {
+    font-size: 26px;
+  }
+
+  .sg-results-saving p {
+    font-size: 13px;
+  }
+
+  .sg-results-saving p + p,
+  .sg-results-context {
+    font-size: 11px;
+  }
+
+  .sg-results-context {
+    margin-top: 8px;
+  }
+
+  .sg-results footer {
+    margin-top: 9px;
+    padding-top: 9px;
+    font-size: 11px;
+  }
+
+  .sg-footer {
+    margin-top: 8px;
+    font-size: 11px;
+  }
+}

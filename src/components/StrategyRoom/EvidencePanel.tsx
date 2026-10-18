@@ -1,31 +1,9 @@
-// Measured ML results for the privacy level chosen in the Experiment Lab.
-// Numbers here are dollars from experiment.json (measured); game scores are points (modeled).
-// TODO: pass the chosen modelId in from App.tsx so this stops defaulting to the baseline.
-
-import type { Experiment } from "../../types/experiment";
-
-interface Props {
-  experiment: Experiment;
-  modelId: string;
-}
-
-export default function EvidencePanel({ experiment, modelId }: Props) {
-  const results = experiment.pooling.results;
-  const result = results.find((r) => r.model_id === modelId) ?? results[0];
-  if (!result) return null;
-
-  return (
-    <div className="sr-card sr-evidence">
-      <div className="sr-evidence-header">
-        <h3>Machine Learning Evidence</h3>
-        <div className="sr-evidence-meta">
-          {experiment.is_sample && <span className="sr-badge sr-badge-sample">Sample Data</span>}
-          <span className="sr-measured">Measured in<br />Experiment Lab</span>
-        </div>
-      </div>
-      <p>Solo Recall: {(result.solo.recall * 100).toFixed(1)}%</p>
-      <p>Pooled Recall: {(result.pooled.recall * 100).toFixed(1)}%</p>
-      <p className="sr-gain">Pooling Gain: +${result.gain_usd.toLocaleString()}</p>
-    </div>
-  );
+import type {Experiment} from '../../types/experiment';
+const money=(n:number)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
+export default function EvidencePanel({experiment,modelId}:{experiment:Experiment;modelId:string}){
+ const model=experiment.models.find(m=>m.id===modelId)??experiment.models.find(m=>m.id==='baseline');
+ const result=experiment.pooling.results.find(r=>r.model_id===model?.id);
+ if(!model||!result)return <section className="sg-results sg-white"><h2>Experiment results</h2><p>Experiment comparison unavailable.</p></section>;
+ const gain=result.gain_usd;
+ return <section className="sg-results sg-white" aria-labelledby="experiment-results-title"><header><h2 id="experiment-results-title">Experiment results</h2><span className="sg-model-tag">{model.label}</span></header>{experiment.is_sample&&<p className="sg-results-context">Illustrative sample results</p>}<h3>Fraud caught</h3><dl className="sg-results-recall"><div><dt>Bank A alone</dt><dd>{(result.solo.recall*100).toFixed(1)}%</dd></div><div><dt>Banks A + B pooled</dt><dd>{(result.pooled.recall*100).toFixed(1)}%</dd></div></dl><div className={`sg-results-saving${gain<=0?' is-neutral':''}`}><p><strong>{money(Math.abs(gain))}</strong> {gain>0?'lower modeled cost with pooling':gain<0?'higher modeled cost with pooling':'modeled cost difference with pooling'}</p><p>{experiment.dataset.test_size.toLocaleString('en-US')} test transactions · Default {money(experiment.cost_assumptions.review_cost_usd)} per review</p></div><details className="sg-results-context"><summary>Evaluation context</summary><p>{experiment.pooling.evaluated_on}</p><p>Costs use the experiment’s default review cost. Your moves do not change these results.</p></details><footer><p>Experiment results are separate from game points.</p><a href="#experiment">Open Experiment Lab ↗</a></footer></section>;
 }

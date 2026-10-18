@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { payoffMatrix, findNashEquilibria } from "./logic";
+import { payoffMatrix, findNashEquilibria, classifyRound } from "./logic";
 import { playRound, getInitialState } from "./engine";
 
 const defaultParams = {
@@ -49,4 +49,16 @@ describe("Strategies & Engine", () => {
     state = playRound(state, "solo");
     expect(state.trustMeter).toBe(50);
   });
+});
+
+describe('Round reveal classification',()=>{
+ it.each([
+ ['share','share','mutual'],['share','solo','betrayed'],['solo','share','freeRide'],['solo','solo','standoff']
+ ] as const)('classifies %s / %s',(a,b,result)=>{expect(classifyRound(a,b)).toBe(result)});
+ it('preserves a six-round Mirror recovery sequence',()=>{
+  let s=getInitialState(defaultParams,'titForTat',12345);
+  for(const move of ['share','share','solo','share','share','share'] as const)s=playRound(s,move);
+  expect(s.history.map(h=>h.opponentMove)).toEqual(['share','share','share','solo','share','share']);
+  expect(s.playerCumulative).toBe(19);expect(s.opponentCumulative).toBe(19);
+ });
 });
