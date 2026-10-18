@@ -52,3 +52,8 @@ export function findNashEquilibria(params: GameParams): Array<[Move, Move]> {
   }
   return equilibria;
 }
+
+export function classifyRound(playerMove: Move, opponentMove: Move): 'mutual' | 'betrayed' | 'freeRide' | 'standoff' {
+ if(playerMove==='share')return opponentMove==='share'?'mutual':'betrayed';
+ return opponentMove==='share'?'freeRide':'standoff';
+}

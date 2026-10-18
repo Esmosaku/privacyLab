@@ -1,20 +1,5 @@
-// The trust bar, 0 to 100. The game logic in src/game/engine.ts sets the value.
-
-interface Props {
-  value: number;
-}
-
-export default function TrustMeter({ value }: Props) {
-  return (
-    <div className="sr-trust">
-      <div className="sr-trust-labels">
-        <span>Distrust</span>
-        <span>Trust Meter</span>
-        <span>Alliance</span>
-      </div>
-      <div className="sr-trust-track">
-        <div className="sr-trust-fill" style={{ width: `${value}%` }} />
-      </div>
-    </div>
-  );
+import {gameCopy as c} from './copy';
+export default function TrustMeter({value}:{value:number}){
+ const safe=Math.max(0,Math.min(100,value));
+ return <section className="sg-trust" aria-label="Trust"><h3>{c.trust}</h3><p><strong>{safe}</strong><span> / 100</span></p><div className="sg-trust-track" role="progressbar" aria-label="Trust" aria-valuemin={0} aria-valuemax={100} aria-valuenow={safe}><div style={{width:`${safe}%`,background:safe<30?'#e88383':safe<=70?'#ffcd59':'#a7e8ad'}}/></div><p className="sg-muted sg-trust-note">{c.trustNote}</p></section>;
 }

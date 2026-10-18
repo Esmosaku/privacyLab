@@ -5,7 +5,8 @@ import LandingPage from './components/LandingPage';
 export default function PrivacyLabApp() {
  const [hash,setHash]=useState(()=>window.location.hash);
  useEffect(()=>{const sync=()=>setHash(window.location.hash);window.addEventListener('hashchange',sync);return()=>window.removeEventListener('hashchange',sync)},[]);
- const isLanding=hash!=='#experiment'&&hash!=='#strategy';
+ const route=hash.split('?')[0];
+ const isLanding=route!=='#experiment'&&route!=='#strategy';
  useEffect(()=>{
   if(!isLanding)return;
   document.title=hash==='#about'?'About | PrivacyLab':'Home | PrivacyLab';

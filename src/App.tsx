@@ -6,7 +6,7 @@ import type { Page } from './components/HomePage';
 import { useExperiment } from './hooks/useExperiment';
 
 function currentPage(): Page {
-  const page = window.location.hash.slice(1);
+  const page = window.location.hash.slice(1).split('?')[0];
 
   return page === 'about' ||
     page === 'experiment' ||
@@ -46,7 +46,9 @@ function ExperimentScreen() {
     );
   }
 
-  return <ExperimentLab data={data} />;
+  return <ExperimentLab data={data} onOpenStrategyRoom={(id) => {
+    window.location.hash = 'strategy?model=' + encodeURIComponent(id);
+  }} />;
 }
 
 export default function App() {
@@ -88,16 +90,9 @@ export default function App() {
   }
 
   if (page === 'strategy') {
-    return (
-      <>
-        <div className="app-lab-nav">
-          <SiteHeader page={page} />
-        </div>
-        <div style={{ width: '100%', padding: '40px 20px' }}>
-          <StrategyRoom />
-        </div>
-      </>
-    );
+    const query = window.location.hash.split('?')[1] ?? '';
+    const modelId = new URLSearchParams(query).get('model') ?? 'baseline';
+    return <StrategyRoom modelId={modelId} />;
   }
 
   return (
