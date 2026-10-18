@@ -1,5 +1,5 @@
-// Owner: Kai. The player's choice each round.
-// TODO(Kai): add the reveal: "rival is deciding...", both moves flip, outcome banner, then "Next round".
+// The player's choice each round.
+// TODO: add the reveal: "rival is deciding...", both moves flip, outcome banner, then "Next round".
 
 import type { Move } from "../../game/types";
 

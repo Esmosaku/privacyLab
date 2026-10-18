@@ -1,6 +1,6 @@
-// Owner: Esther. Measured ML results for the privacy level chosen in the Experiment Lab.
+// Measured ML results for the privacy level chosen in the Experiment Lab.
 // Numbers here are dollars from experiment.json (measured); game scores are points (modeled).
-// TODO(Esther): pass the chosen modelId in from App.tsx so this stops defaulting to the baseline.
+// TODO: pass the chosen modelId in from App.tsx so this stops defaulting to the baseline.
 
 import type { Experiment } from "../../types/experiment";
 

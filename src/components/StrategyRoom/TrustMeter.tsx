@@ -1,4 +1,4 @@
-// Owner: Mai (look). The trust bar, 0 to 100. The game logic in src/game/engine.ts sets the value.
+// The trust bar, 0 to 100. The game logic in src/game/engine.ts sets the value.
 
 interface Props {
   value: number;

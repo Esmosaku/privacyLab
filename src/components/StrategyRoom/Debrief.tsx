@@ -1,6 +1,6 @@
-// Owner: Kai (logic) + Linh (wording). Shown after the last round.
-// TODO(Kai): say which equilibrium the game ended in, and show the strategy in plain English, not its code id.
-// TODO(Linh): make the lesson depend on what actually happened.
+// Shown after the last round.
+// TODO: say which equilibrium the game ended in, and show the strategy in plain English, not its code id.
+// TODO: make the lesson depend on what actually happened.
 
 interface Props {
   opponentId: string;
