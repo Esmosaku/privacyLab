@@ -113,8 +113,8 @@ export default function App() {
             lets you test banking strategies and explore trade-offs.
           </p>
           <p className="home-note">
-            A hackathon project using synthetic data
-            and simulated scenarios.
+            A hackathon project using real, anonymized credit card
+            transactions and two simulated banks.
           </p>
           <a className="home-return" href="#home">
             Back to Home →

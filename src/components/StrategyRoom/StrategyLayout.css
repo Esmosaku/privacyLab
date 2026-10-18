@@ -244,3 +244,16 @@
     font-size: 11px;
   }
 }
+/* Plain-words payoff rows: let the sentence wrap and stay right-aligned */
+.sg-outcomes dd { white-space: normal; text-align: right; font-weight: 400; }
+.sg-outcomes dd strong { font-weight: 700; color: #e6fbda; }
+.sg-outcomes dt { font-weight: 600; flex-shrink: 0; }
+
+/* End-of-game result */
+.sg-final { margin: 0 0 4px; font-size: 20px; color: #fff; }
+.sg-final strong { display: block; font: 700 clamp(40px, 4.5vw, 56px)/1.1 Arial, Helvetica, sans-serif; color: #e6fbda; letter-spacing: -.03em; }
+.sg-compare { margin: 0 0 22px; padding: 10px 14px; border-radius: 12px; background: #ffffff12; border: 1px solid #ffffff2e; color: #d6e3f0; font-size: 17px; }
+.sg-compare strong { color: #fff8d2; }
+
+/* Shared logo on the game screen */
+.sg-brand svg { width: 24px; height: 30px; flex-shrink: 0; }

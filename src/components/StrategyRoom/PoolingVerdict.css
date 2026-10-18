@@ -1,0 +1,9 @@
+.sg-verdict { border: 1px solid #a6cbe44d; border-left: 6px solid var(--verdict); border-radius: 15px; background: #8bbce21f; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 18px 22px; margin: 20px 0; max-width: 760px; color: #fff; font-family: Arial, Helvetica, sans-serif; }
+.sg-verdict--dontPool { --verdict: #e88383; }
+.sg-verdict--trustNeeded { --verdict: #ffcd59; }
+.sg-verdict--pool { --verdict: #a7e8ad; }
+.sg-verdict-eyebrow { font-size: 13px; letter-spacing: .02em; color: #c0d2e4; margin: 0 0 6px; }
+.sg-verdict h2 { font-size: 24px !important; line-height: 1.25; margin: 0 0 6px; color: var(--verdict); letter-spacing: -.02em; }
+.sg-verdict p { margin: 0; color: #d6e3f0; font-size: 16px; line-height: 1.45; max-width: none; }
+.sg-verdict a { display: inline-block; margin-top: 10px; color: #fff8d2; font-size: 14px; text-underline-offset: 3px; }
+.sg-verdict a:focus-visible { outline: 3px solid #fff8d2; outline-offset: 4px; }

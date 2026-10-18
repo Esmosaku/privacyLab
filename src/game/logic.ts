@@ -1,6 +1,13 @@
 import type { Move, GameParams, Payoff } from "./types";
 
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
 export function payoff(myMove: Move, theirMove: Move, params: GameParams): Payoff {
+  const [mine, theirs] = rawPayoff(myMove, theirMove, params);
+  return [round2(mine), round2(theirs)];
+}
+
+function rawPayoff(myMove: Move, theirMove: Move, params: GameParams): Payoff {
   if (myMove === "share" && theirMove === "share") {
     const val = params.soloValue + params.poolingBonus - params.privacyRisk;
     return [val, val];
@@ -56,4 +63,25 @@ export function findNashEquilibria(params: GameParams): Array<[Move, Move]> {
 export function classifyRound(playerMove: Move, opponentMove: Move): 'mutual' | 'betrayed' | 'freeRide' | 'standoff' {
  if(playerMove==='share')return opponentMove==='share'?'mutual':'betrayed';
  return opponentMove==='share'?'freeRide':'standoff';
+}
+
+// ---- Connecting the game to the Experiment Lab ----
+// The reward for mutual sharing comes from the MEASURED pooling gain at the chosen privacy level
+// (experiment.json → pooling.results[].gain_usd). Every other payoff stays a modeled assumption.
+export const USD_PER_POINT = 1000;
+
+export function paramsWithMeasuredGain(params: GameParams, gainUsd: number): GameParams {
+  return { ...params, poolingBonus: Math.round((gainUsd / USD_PER_POINT) * 10) / 10 };
+}
+
+export type PoolingVerdict = "dontPool" | "trustNeeded" | "pool";
+
+// What kind of game these payoffs create, from a bank's point of view.
+export function poolingVerdict(params: GameParams): PoolingVerdict {
+  const bothShare = params.soloValue + params.poolingBonus - params.privacyRisk;
+  const bothSolo = params.soloValue;
+  const freeRide = params.soloValue + params.freeRideBonus;
+  if (bothShare <= bothSolo) return "dontPool";   // sharing is worse than a standoff
+  if (bothShare < freeRide) return "trustNeeded"; // sharing beats a standoff, but free-riding tempts both banks
+  return "pool";                                  // mutual sharing is a stable choice
 }

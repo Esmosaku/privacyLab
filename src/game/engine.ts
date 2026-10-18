@@ -21,8 +21,8 @@ export function playRound(state: GameState, playerMove: Move): GameState {
 
   const [pScore, oScore] = payoff(playerMove, opponentMove, state.params);
 
-  const playerCumulative = state.playerCumulative + pScore;
-  const opponentCumulative = state.opponentCumulative + oScore;
+  const playerCumulative = Math.round((state.playerCumulative + pScore) * 100) / 100;
+  const opponentCumulative = Math.round((state.opponentCumulative + oScore) * 100) / 100;
 
   let trustDelta = 0;
   if (playerMove === "share" && opponentMove === "share") trustDelta = 15;
