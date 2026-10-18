@@ -116,3 +116,6 @@
     margin-bottom: 24px;
   }
 }
+/* Goal line under the description */
+.sr-intro-goal { display: inline-block; margin: 16px 0 0; padding: 8px 16px; border: 1px solid #e6fbda66; border-radius: 999px; background: #e6fbda1a; color: #e6fbda; font: 600 clamp(16px, 1.5vw, 22px)/1.35 Arial, Helvetica, sans-serif; }
+@media (max-width: 700px) { .sr-intro-goal { font-size: 16px; border-radius: 14px; } }
